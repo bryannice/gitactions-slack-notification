@@ -1,4 +1,4 @@
-package internal
+package notifier
 
 type Message struct {
 	Username    string       `json:"username,omitempty"`

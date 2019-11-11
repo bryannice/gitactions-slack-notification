@@ -9,10 +9,6 @@ import (
 	"net/http"
 )
 
-type Message internal.Message
-type Attachment internal.Attachment
-type Field internal.Field
-
 func (message *Message) Send(webhook string) error {
 	var err error
 

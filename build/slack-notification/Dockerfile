@@ -16,7 +16,7 @@ RUN go get ./... && \
 FROM alpine:3.10
 
 COPY LICENSE README.md /
-#COPY --from=BUILD /go/bin/slack-notification /usr/bin
+COPY --from=BUILD /go/bin/slack-notification /usr/bin
 COPY --from=BUILD /go /go
 
 #ENTRYPOINT ["slack-notification"]

@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/bryan-nice/slack-notification/command/notifier"
 	"github.com/bryan-nice/slack-notification/configuration"
-	"github.com/bryan-nice/slack-notification/internal"
 	"github.com/pkg/errors"
 	"log"
 )
@@ -24,14 +23,14 @@ func main() {
 	slackMessage.Username = config.SlackUsername
 	slackMessage.IconURL = config.SlackIconUrl
 	slackMessage.Channel = config.SlackChannel
-	slackMessage.Attachments = []internal.Attachment{
+	slackMessage.Attachments = []notifier.Attachment{
 		{
 			AuthorName:    config.GithubActor,
 			AuthorLink:    "http://github.com/" + config.GithubActor,
 			AuthorIconURL: "http://github.com/" + config.GithubActor + ".png?size=32",
 			Color:         config.SlackColor,
 			Title:         config.GithubEventName,
-			Fields: []internal.Field{
+			Fields: []notifier.Field{
 				{
 					Title: "Ref",
 					Value: config.GithubRef,
