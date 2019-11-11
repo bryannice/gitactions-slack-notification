@@ -13,5 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Print Environment variables
+      run: printenv
     - name: Build slack-notification App
       run: echo ${GITHUB_HEAD_REF} && make build BRANCH=${GITHUB_HEAD_REF}
