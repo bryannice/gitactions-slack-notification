@@ -13,7 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Set BRANCH environment varaible with current branch name
+      run: export BRANCH=$(git rev-parse --abbrev-ref HEAD)
     - name: Print Environment variables
       run: printenv
     - name: Build slack-notification App
-      run: echo ${GITHUB_HEAD_REF} && make build BRANCH=${GITHUB_HEAD_REF}
+      run: echo ${GITHUB_HEAD_REF} && make build BRANCH=${BRANCH}
