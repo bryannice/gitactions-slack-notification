@@ -23,5 +23,5 @@ test-build: fmt
 .PHONY: build
 build:
 	@cp LICENSE README.md build/slack-notification
-	@docker build --tag slack-notification build/slack-notification
+	@docker build --tag $$(basename $$(git rev-parse --show-toplevel)):$$(date +%s) build/slack-notification
 	@rm build/slack-notification/LICENSE build/slack-notification/README.md
