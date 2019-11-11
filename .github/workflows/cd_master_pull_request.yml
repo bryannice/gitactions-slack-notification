@@ -1,0 +1,29 @@
+name: CD For Processing a Pull Request to Master
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set Environment Variables
+        run: |
+          TGT_TAG=$(echo $GITHUB_REF | cut -d "/" -f 3)
+      - name: Test merge locally
+        run: git merge ${TGT_TAG}
+        if: success()
+      - name: Test build on local merged master
+        run: make build
+        if: success()
+      - name: Create tag for this release
+        run: git tag -a ${TGT_TAG} -m "Create tag for ${GITHUB_SHA}"
+        if: success()
+      - name: Push merged pull request to Origin/Master with tag and delete working branch
+        run: git push origin --tags --delete ${TGT_TAG}
+        if: success()

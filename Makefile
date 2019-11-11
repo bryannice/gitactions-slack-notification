@@ -22,6 +22,11 @@ test-build: fmt
 
 .PHONY: build
 build:
-	@cp LICENSE README.md build/slack-notification
+	@cp LICENSE README.md main.go build/slack-notification
+	@cp -rf command configuration build/slack-notification
 	@docker build --tag $$(basename $$(git rev-parse --show-toplevel)):$$(date +%s) build/slack-notification
-	@rm build/slack-notification/LICENSE build/slack-notification/README.md
+	@rm -rf build/slack-notification/LICENSE \
+		build/slack-notification/README.md \
+		build/slack-notification/main.go \
+		build/slack-notification/command \
+		build/slack-notification/configuration
