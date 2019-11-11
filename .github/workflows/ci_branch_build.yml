@@ -13,7 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: check command
-      run: git rev-parse --abbrev-ref HEAD
     - name: Build slack-notification App
-      run: make build BRANCH=$(git rev-parse --abbrev-ref HEAD)
+      run: make build BRANCH=${GITHUB_REF##*/}
