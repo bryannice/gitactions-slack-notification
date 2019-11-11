@@ -5,7 +5,11 @@ FROM bryannice/gopher-notes as BUILD
 
 WORKDIR /go/src
 
-RUN git clone https://github.com/bryan-nice/slack-notification.git
+RUN mkdir -p slack-notification
+
+COPY main.go slack-notification/main.go
+COPY command slack-notification/command
+COPY configuration slack-notification/configuration
 
 RUN go get ./... && \
     go install ./...

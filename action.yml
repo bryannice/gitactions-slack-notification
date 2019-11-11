@@ -1,0 +1,10 @@
+name: 'Slack Notification'
+description: 'Slack notification sent by Git Actions'
+author: 'Bryan Nice'
+inputs:
+  version:
+    description: 'Version to use (default is latest)'
+    default: 'latest'
+runs:
+  using: 'docker'
+  image: 'docker:://bryannice/slack-notification:${{ inputs.version }}'
