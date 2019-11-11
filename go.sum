@@ -1,2 +1,4 @@
+github.com/bryan-nice/slack-notification/command/notifier v0.0.0-20191111005330-91e39da58f27 h1:iDJ8GN2wlc/6RCxLrMbjGgUwIlhdYQ72DcNCwUIwpHo=
+github.com/bryan-nice/slack-notification/command/notifier v0.0.0-20191111005330-91e39da58f27/go.mod h1:ZYvPPnKzmFPHyYEKbJkc4aurK+b4tmoJernNvpGM+dA=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

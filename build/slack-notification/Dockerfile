@@ -1,15 +1,22 @@
 # -----------------------------------------------------------------------------
 # Stage: BUILD
 # -----------------------------------------------------------------------------
-FROM
+FROM bryannice/gopher-notes as BUILD
+
+WORKDIR /go/src
+
+RUN git clone https://github.com/bryan-nice/slack-notification.git
 
 RUN go get ./... && \
     go install ./...
 
+# -----------------------------------------------------------------------------
+# Stage: BUILD
+# -----------------------------------------------------------------------------
 FROM alpine:3.10
 
 COPY LICENSE README.md /
+#COPY --from=BUILD /go/bin/slack-notification /usr/bin
+COPY --from=BUILD /go /go
 
-COPY entrypoint.sh /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["slack-notification"]
