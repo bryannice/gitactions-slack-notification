@@ -12,7 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Set Environment Variables
       - name: Test merge locally
         run: git merge ${GITHUB_HEAD_REF}
         if: success()
