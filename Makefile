@@ -24,7 +24,7 @@ test-build: fmt
 build:
 	@cp LICENSE README.md main.go build/docker
 	@cp -rf command configuration build/docker
-	@docker build --tag $$(basename $$(git rev-parse --show-toplevel)):$$(date +%s) build/docker
+	@docker build --tag $$(basename $$(git rev-parse --show-toplevel)):$$(date +%s) --build-arg "BRANCH=$$(basename $$(git rev-parse --show-toplevel))" build/docker
 	@rm -rf build/docker/LICENSE \
 		build/docker/README.md \
 		build/docker/main.go \

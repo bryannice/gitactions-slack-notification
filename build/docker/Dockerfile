@@ -1,15 +1,20 @@
 # -----------------------------------------------------------------------------
 # Stage: BUILD
 # -----------------------------------------------------------------------------
-FROM bryannice/gopher-notes as BUILD
+ARG BRANCH="master"
+FROM golang:1.13.4-alpine3.10 as BUILD
+
+# Add github
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache \
+        git
 
 WORKDIR /go/src
 
-RUN mkdir -p slack-notification
-
-COPY main.go slack-notification/main.go
-COPY command slack-notification/command
-COPY configuration slack-notification/configuration
+RUN git clone https://github.com/bryan-nice/slack-notification.git && \
+    cd slack-notification && \
+    git checkout ${BRANCH}
 
 RUN go get ./... && \
     go install ./...
