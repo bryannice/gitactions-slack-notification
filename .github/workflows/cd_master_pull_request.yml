@@ -13,8 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Set Environment Variables
-        run: |
-          TGT_TAG=$(echo $GITHUB_REF | cut -d "/" -f 3)
+        run: export TGT_TAG=$(echo $GITHUB_REF | cut -d "/" -f 3)
       - name: Test merge locally
         run: git merge ${TGT_TAG}
         if: success()
