@@ -24,3 +24,4 @@ test-build: fmt
 build:
 	@cp LICENSE README.md build/slack-notification
 	@docker build --tag slack-notification build/slack-notification
+	@rm build/slack-notification/LICENSE build/slack-notification/README.md
