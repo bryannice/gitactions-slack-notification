@@ -12,8 +12,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: Locally checkout master
+        run: git checkout master
       - name: Test merge locally
         run: git merge ${GITHUB_HEAD_REF}
+        if: success()
       - name: Test build on local merged master
         run: make build
         if: success()
