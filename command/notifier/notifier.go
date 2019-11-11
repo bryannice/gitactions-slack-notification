@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/bryan-nice/slack-notification/internal"
 	"github.com/pkg/errors"
 	"net/http"
 )
