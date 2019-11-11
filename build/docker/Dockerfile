@@ -1,8 +1,9 @@
 # -----------------------------------------------------------------------------
 # Stage: BUILD
 # -----------------------------------------------------------------------------
-ARG BRANCH="master"
 FROM golang:1.13.4-alpine3.10 as BUILD
+
+ARG BRANCH="master"
 
 # Add github
 RUN apk update && \
@@ -24,7 +25,8 @@ RUN go get ./... && \
 # -----------------------------------------------------------------------------
 FROM alpine:3.10
 
-COPY LICENSE README.md /
 COPY --from=BUILD /go/bin/slack-notification /usr/bin
+COPY --from=BUILD /go/src/slack-notification/LICENSE /
+COPY --from=BUILD /go/src/slack-notification/README.md /
 
 ENTRYPOINT ["slack-notification"]
