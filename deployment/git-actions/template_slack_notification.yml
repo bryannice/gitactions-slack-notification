@@ -1,0 +1,24 @@
+on: push
+name: Slack Notification Demo
+jobs:
+  slackNotification:
+    name: Slack Notification Demo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Slack Notification Demo
+        uses: bryan-nice/slack-notification@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: 'Slack Notification Demo'
+          SLACK_MESSAGE: 'Demo''ing the Slack Notification'
+          SLACK_ICON: 'https://github.com/<Github User>.png?size=48'
+          SLACK_CHANNEL: 'demo-channel'
+          SLACK_COLOR: '#efefef'
+          SLACK_USERNAME: 'demo-bot'
+          GITHUB_ACTOR: ${GITHUB_ACTOR}
+          GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}
+          GITHUB_REF: ${GITHUB_REF}
+          GITHUB_ACTION: ${GITHUB_ACTION}
+          GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}
+          GITHUB_WORKFLOW: ${GITHUB_WORKFLOW}

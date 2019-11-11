@@ -22,11 +22,11 @@ test-build: fmt
 
 .PHONY: build
 build:
-	@cp LICENSE README.md main.go build/slack-notification
-	@cp -rf command configuration build/slack-notification
-	@docker build --tag $$(basename $$(git rev-parse --show-toplevel)):$$(date +%s) build/slack-notification
-	@rm -rf build/slack-notification/LICENSE \
-		build/slack-notification/README.md \
-		build/slack-notification/main.go \
-		build/slack-notification/command \
-		build/slack-notification/configuration
+	@cp LICENSE README.md main.go build/docker
+	@cp -rf command configuration build/docker
+	@docker build --tag $$(basename $$(git rev-parse --show-toplevel)):$$(date +%s) build/docker
+	@rm -rf build/docker/LICENSE \
+		build/docker/README.md \
+		build/docker/main.go \
+		build/docker/command \
+		build/docker/configuration

@@ -1,11 +1,43 @@
-# Container Action Template
+# Slack Notification
 
-To get started, click the `Use this template` button on this repository [which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+Git Action to send messages to Slack. This action can be used to send message about the status of a Git Action workflow. 
 
-For info on how to build your first Container action, see the [toolkit docs folder](https://github.com/actions/toolkit/blob/master/docs/container-action.md).
+## Usage 
+
+This action can be used after any other action. Below is simple example on using it:
+
+1\. Create a `.github/workflows/slack-notification.yml`
+
+2\. Add the following properties to `slack-notification.yml` file
+
+```yaml
+on: push
+name: Slack Notification Demo
+jobs:
+    slackNotification:
+      name: Slack Notification Demo
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@master
+      - name: Slack Notification Demo
+        uses: bryan-nice/slack-notification@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: 'Slack Notification Demo'
+          SLACK_MESSAGE: 'Demo''ing the Slack Notification'
+```
+
+Go [here](deployment/git-actions/template_slack_notification.yml) for a template yml with all environment variables.
+
+3\. Generate Slack WebHook [here](https://entelexeia.slack.com/apps/A0F7XDUAZ-incoming-webhooks?next_id=0)
+
+4\. Encrypt Slack Webhook as a secret in the repo using this app. 
+
 
 
 ## Environment Variables
+These are the environment variables that can be set to pass in additional information about the Git Action.
+
 <table>
     <tr>
         <td>
@@ -162,3 +194,9 @@ For info on how to build your first Container action, see the [toolkit docs fold
         </td>
     </tr>
 </table>
+
+## Reference
+* [Using environment variables](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/using-environment-variables) lists the default environment variables set in Git Actions.
+
+## License
+[GPLv3](LICENSE)
