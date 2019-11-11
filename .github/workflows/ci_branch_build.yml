@@ -1,0 +1,17 @@
+name: CI Build Tests on All Branches Except For Master
+
+on: 
+  push:
+    branches-ignore: 
+      - master
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build slack-notification App
+      run: docker build --tag (basename $(git rev-parse --show-toplevel)):$(date +%s) build/slack-notification
