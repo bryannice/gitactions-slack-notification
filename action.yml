@@ -7,4 +7,4 @@ inputs:
     default: 'latest'
 runs:
   using: 'docker'
-  image: join('docker://bryannice/slack-notification:', ${{ version }})
+  image: join('docker://bryannice/slack-notification:', ${INPUT_VERSION})
