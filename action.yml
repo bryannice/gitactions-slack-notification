@@ -4,6 +4,7 @@ author: 'Bryan Nice'
 inputs:
   version:
     description: 'Version to use (default is latest)'
+    required: true
     default: 'latest'
 runs:
   using: 'docker'
