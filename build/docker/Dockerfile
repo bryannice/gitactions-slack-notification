@@ -25,6 +25,11 @@ RUN go get ./... && \
 # -----------------------------------------------------------------------------
 FROM alpine:3.10
 
+LABEL "com.github.actions.icon"="message-square"
+LABEL "com.github.actions.color"="purple"
+LABEL "com.github.actions.name"="Slack Notification"
+LABEL "com.github.actions.description"="Send notification to Slack"
+
 COPY --from=BUILD /go/bin/slack-notification /usr/bin
 COPY --from=BUILD /go/src/slack-notification/LICENSE /
 COPY --from=BUILD /go/src/slack-notification/README.md /

@@ -3,4 +3,4 @@ description: 'Slack notification sent by Git Actions'
 author: 'Bryan Nice'
 runs:
   using: 'docker'
-  image: 'docker://bryannice/slack-notification'
+  image: 'docker://bryannice/slack-notification:1.0.2'
