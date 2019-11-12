@@ -9,4 +9,4 @@ runs:
   using: 'docker'
   image: 'docker:://bryannice/slack-notification:${VERSION}'
   env:
-    VERSION=${{ inputs.version }}
+    VERSION: ${{ inputs.version }}
