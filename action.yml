@@ -7,6 +7,4 @@ inputs:
     default: 'latest'
 runs:
   using: 'docker'
-  image: 'docker:://bryannice/slack-notification:'${{ inputs.version }}
-  env:
-    VERSION: ${{ inputs.version }}
+  image: docker:://bryannice/slack-notification:${{ inputs.version }}
