@@ -8,5 +8,5 @@ inputs:
 runs:
   using: 'docker'
   image: 'build/Dockerfile'
-    args:
+  args:
     - ${{ inputs.version }}
