@@ -9,4 +9,4 @@ runs:
   using: 'docker'
   image: 'build/Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.version }}
