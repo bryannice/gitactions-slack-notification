@@ -1,4 +1,4 @@
-ARG VERSION="${INPUT_VERSION}"
-FROM bryannice/slack-notification:${VERSION}
+ARG IMAGE=bryannice/slack-notification:${INPUT_VERSION}
+FROM ${IMAGE}
 
 ENTRYPOINT ["slack-notification"]
