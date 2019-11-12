@@ -1,5 +1,4 @@
-ARG INPUT_VERSION=latest
+ARG VERSION=${INPUT_VERSION}
 FROM bryannice/slack-notification:${VERSION}
 
-RUN echo ${INPUT_VERSION}
 ENTRYPOINT ["slack-notification"]
