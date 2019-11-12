@@ -1,4 +1,4 @@
-ARGS VERSION=latest
+ARG VERSION=latest
 
 FROM bryannice/slack-notification:${VERSION}
 
