@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # Stage: BUILD
 # -----------------------------------------------------------------------------
-FROM golang:1.13.4-alpine3.10 as BUILD
+FROM golang:1.15.6-alpine3.12 as BUILD
 
 ARG BRANCH="master"
 
@@ -13,7 +13,7 @@ RUN apk update && \
 
 WORKDIR /go/src
 
-RUN git clone https://github.com/bryan-nice/slack-notification.git && \
+RUN git clone https://github.com/bryannice/slack-notification.git && \
     cd slack-notification && \
     git checkout ${BRANCH}
 
@@ -23,7 +23,7 @@ RUN go get ./... && \
 # -----------------------------------------------------------------------------
 # Stage: BUILD
 # -----------------------------------------------------------------------------
-FROM alpine:3.10
+FROM alpine:3.12
 
 LABEL "com.github.actions.icon"="message-square"
 LABEL "com.github.actions.color"="purple"
