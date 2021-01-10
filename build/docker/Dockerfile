@@ -1,26 +1,18 @@
 ARG STEP_1_IMAGE=golang:1.15.6-alpine3.12
 ARG STEP_2_IMAGE=alpine:3.12
-ARG IMAGE_TAG=master
 
 # -----------------------------------------------------------------------------
 # Step 1
 # -----------------------------------------------------------------------------
 FROM ${STEP_1_IMAGE} AS STEP_1
 
-# Add github
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
-        git
+RUN mkdir -p git gitactions-slack-notification
 
-WORKDIR /go/src
+COPY . /go/src/gitactions-slack-notification
 
-RUN git clone https://github.com/bryannice/gitactions-slack-notification.git && \
-    cd gitactions-slack-notification && \
-    git checkout ${IMAGE_TAG}
+WORKDIR /go/src/gitactions-slack-notification
 
-RUN go get ./... && \
-    go install ./...
+RUN go build
 
 # -----------------------------------------------------------------------------
 # Step 2
@@ -32,7 +24,7 @@ LABEL "com.github.actions.color"="purple"
 LABEL "com.github.actions.name"="GitActions Slack Notification"
 LABEL "com.github.actions.description"="Send notification to Slack"
 
-COPY --from=STEP_1 /go/bin/gitactions-slack-notification /usr/bin
+COPY --from=STEP_1 /go/src/gitactions-slack-notification /usr/bin
 COPY --from=STEP_1 /go/src/gitactions-slack-notification/LICENSE /
 COPY --from=STEP_1 /go/src/gitactions-slack-notification/README.md /
 

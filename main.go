@@ -5,7 +5,6 @@ import (
 	"github.com/bryannice/gitactions-slack-notification/configuration"
 	"github.com/pkg/errors"
 	"log"
-	"fmt"
 )
 
 func main() {
@@ -54,7 +53,6 @@ func main() {
 			},
 		},
 	}
-	fmt.Println(config.SlackWebhook)
 
 	err = slackMessage.Send(config.SlackWebhook)
 	if err != nil {

@@ -31,7 +31,6 @@ GIT_VERSION_LONG := $(shell git describe --always --tags --long --dirty)
 
 STEP_1_IMAGE ?= golang:1.15.6-alpine3.12
 STEP_2_IMAGE ?= alpine:3.12
-IMAGE_TAG ?= $(GIT_BRANCH)
 DOCKER_IMAGE_TAG ?= $(GIT_REPOSITORY_NAME):$(GIT_VERSION)
 DOCKER_IMAGE_NAME := $(GIT_REPOSITORY_NAME)
 
@@ -51,7 +50,6 @@ docker-build: docker-rmi-for-build
 	@docker build \
 		--build-arg STEP_1_IMAGE=$(STEP_1_IMAGE) \
 		--build-arg STEP_2_IMAGE=$(STEP_2_IMAGE) \
-		--build-arg IMAGE_TAG=$(IMAGE_TAG) \
 		--tag $(DOCKER_IMAGE_NAME) \
 		--tag $(DOCKER_IMAGE_NAME):$(GIT_VERSION) \
 		--file build/docker/Dockerfile \
@@ -64,7 +62,6 @@ docker-build-development-cache: docker-rmi-for-build-development-cache
 	@docker build \
 		--build-arg STEP_1_IMAGE=$(STEP_1_IMAGE) \
 		--build-arg STEP_2_IMAGE=$(STEP_2_IMAGE) \
-		--build-arg IMAGE_TAG=$(IMAGE_TAG) \
 		--tag $(DOCKER_IMAGE_TAG) \
 		--file build/docker/Dockerfile \
 		.

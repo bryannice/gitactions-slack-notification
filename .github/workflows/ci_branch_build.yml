@@ -23,7 +23,6 @@ jobs:
           make \
             DOCKER_IMAGE_NAME=${{ steps.job_info.outputs.repo_name }} \
             GIT_VERSION=${GITHUB_REF##*/} \
-            IMAGE_TAG=${GITHUB_REF##*/} \
             STEP_1_IMAGE=golang:1.15.6-alpine3.12 \
             STEP_2_IMAGE=alpine:3.12 \
             docker-build
