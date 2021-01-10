@@ -30,7 +30,7 @@ jobs:
             docker-build
     - name: Test gitactions-slack-notification App
       run: |
-        docker run -it \
+        docker run --rm \
           --env SLACK_CHANNEL=${{ steps.job_info.outputs.repo_name }} \
           --env SLACK_COLOR='#3278BD' \
           --env SLACK_TITLE='Test ${{ steps.job_info.outputs.repo_name }} on commit sha ${{ github.sha }}' \
