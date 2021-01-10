@@ -6,4 +6,4 @@ branding:
   color: 'purple'
 runs:
   using: 'docker'
-  image: 'docker://bryannice/gitactions-slack-notification:1.1.0'
+  image: 'docker://bryannice/gitactions-slack-notification:1.2.0'

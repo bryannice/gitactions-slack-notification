@@ -6,12 +6,55 @@ on:
       - master
 
 jobs:
-
-  build:
-
+  pushCiBuildDockerImage:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
+    - name: Set Variables With Build Info
+      id: job_info
+      run: |
+        curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o job_info.json https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${{ github.run_id }}/jobs
+        echo ::set-output name=branch_name::$(echo ${GITHUB_REF##*/})
+        echo ::set-output name=repo_name::$(echo ${GITHUB_REPOSITORY##*/})
+    - name: Capture environment variables
+      run: printenv
     - name: Build slack-notification App
-      run: make build BRANCH=${GITHUB_REF##*/}
+      run: |
+          make \
+            DOCKER_IMAGE_NAME=${{ steps.job_info.outputs.repo_name }} \
+            GIT_VERSION=${GITHUB_REF##*/} \
+            STEP_1_IMAGE=golang:1.15.6-alpine3.12 \
+            STEP_2_IMAGE=alpine:3.12 \
+            docker-build
+    - name: Test gitactions-slack-notification App
+      run: |
+        docker run --rm \
+          --env GITHUB_ACTION=${{ github.action }} \
+          --env GITHUB_ACTOR=${{ github.actor }} \
+          --env GITHUB_EVENT_NAME=${{ github.event_name }} \
+          --env GITHUB_REF="${{ github.ref }}" \
+          --env GITHUB_REPOSITORY="${{ github.repository }}" \
+          --env GITHUB_WORKFLOW="${{ github.workflow }}" \
+          --env SLACK_CHANNEL=${{ steps.job_info.outputs.repo_name }} \
+          --env SLACK_COLOR="#3278BD" \
+          --env SLACK_INCOMING_WEBHOOK=${{ secrets.SLACK_INCOMING_WEBHOOK }} \
+          --env SLACK_MESSAGE="Testing gitactions slack notification" \
+          --env SLACK_TITLE="Test ${{ steps.job_info.outputs.repo_name }} on commit sha ${{ github.sha }}" \
+          --env SLACK_USERNAME=${{ steps.job_info.outputs.repo_name }} \
+          ${{ steps.job_info.outputs.repo_name }}:${{ steps.job_info.outputs.branch_name }}
+  logPullCiBuildDockerImage:
+    needs: pushCiBuildDockerImage
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate log file
+        run: |
+          curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o job_info.json https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${{ github.run_id }}/jobs
+          curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o build_logs.txt $(cat job_info.json | jq --raw-output '.jobs | .[0] | .url')/logs
+      - name: Persisting log
+        id: persisting_log
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: workflow_log
+          path: build_logs.txt
