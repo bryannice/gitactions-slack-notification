@@ -32,7 +32,6 @@ GIT_VERSION_LONG := $(shell git describe --always --tags --long --dirty)
 STEP_1_IMAGE ?= golang:1.15.6-alpine3.12
 STEP_2_IMAGE ?= alpine:3.12
 IMAGE_TAG ?= master
-DOCKER_IMAGE_PACKAGE := $(GIT_REPOSITORY_NAME)-package:$(GIT_VERSION)
 DOCKER_IMAGE_TAG ?= $(GIT_REPOSITORY_NAME):$(GIT_VERSION)
 DOCKER_IMAGE_NAME := $(GIT_REPOSITORY_NAME)
 
@@ -85,10 +84,6 @@ docker-rmi-for-build:
 .PHONY: docker-rmi-for-build-development-cache
 docker-rmi-for-build-development-cache:
 	-docker rmi --force $(DOCKER_IMAGE_TAG)
-
-.PHONY: docker-rmi-for-package
-docker-rmi-for-packagae:
-	-docker rmi --force $(DOCKER_IMAGE_PACKAGE)
 
 # -------------
 # Go Lang
