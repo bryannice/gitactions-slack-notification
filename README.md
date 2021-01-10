@@ -20,11 +20,11 @@ jobs:
       steps:
       - uses: actions/checkout@master
       - name: Slack Notification Demo
-        uses: bryannice/gitactions-slack-notification@master
+        uses: bryannice/gitactions-slack-notification@1.2.0
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_TITLE: 'Slack Notification Demo'
+          SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_INCOMING_WEBHOOK }}
           SLACK_MESSAGE: 'Demo''ing the Slack Notification'
+          SLACK_TITLE: 'Slack Notification Demo'
 ```
 
 Go [here](deployment/git-actions/template_slack_notification.yml) for a template yml with all environment variables.
