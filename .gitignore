@@ -45,3 +45,7 @@ dist/*
 
 # Jupyter lab
 *.ipynb_checkpoints
+
+.ash_history
+
+.cache

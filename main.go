@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/bryan-nice/slack-notification/command/notifier"
-	"github.com/bryan-nice/slack-notification/configuration"
+	"github.com/bryannice/gitactions-slack-notification/command/notifier"
+	"github.com/bryannice/gitactions-slack-notification/configuration"
 	"github.com/pkg/errors"
 	"log"
 )
