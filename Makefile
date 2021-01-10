@@ -52,7 +52,7 @@ docker-build: docker-rmi-for-build
 		--build-arg STEP_2_IMAGE=$(STEP_2_IMAGE) \
 		--tag $(DOCKER_IMAGE_NAME) \
 		--tag $(DOCKER_IMAGE_NAME):$(GIT_VERSION) \
-		--file build/docker/Dockerfile \
+		--file build/docker/Dockerfile.repo \
 		.
 	@echo "$(BOLD)$(GREEN)Completed building docker image.$(RESET)"
 
@@ -63,7 +63,7 @@ docker-build-development-cache: docker-rmi-for-build-development-cache
 		--build-arg STEP_1_IMAGE=$(STEP_1_IMAGE) \
 		--build-arg STEP_2_IMAGE=$(STEP_2_IMAGE) \
 		--tag $(DOCKER_IMAGE_TAG) \
-		--file build/docker/Dockerfile \
+		--file build/docker/Dockerfile.repo \
 		.
 	@echo "$(BOLD)$(GREEN)Completed building docker image.$(RESET)"
 
