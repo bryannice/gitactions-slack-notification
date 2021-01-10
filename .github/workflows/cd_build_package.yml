@@ -15,23 +15,26 @@ jobs:
         id: job_info
         run: |
           curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o job_info.json https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${{ github.run_id }}/jobs
-          echo ::set-output name=branch_name::$(echo ${GITHUB_REF##*/})
           echo ::set-output name=repo_name::$(echo ${GITHUB_REPOSITORY##*/})
       - name: Capture environment variables
         run: printenv
-      - name: Build slack-notification App
-        run: |
-          docker run --rm \
-            -v ${PWD}:/go/src/github.com/${{ steps.job_info.outputs.repo_name }} \
-            --workdir /go/src/github.com/${{ steps.job_info.outputs.repo_name }} \
-            golang:1.15.6-alpine3.12 \
-            go build
-      - name: Upload build artifact
-        if: success()
-        uses: actions/upload-artifact@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
         with:
-          name: v0.0.0
-          path: gitactions-slack-notification
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Build and push
+        id: build_and_push
+        uses: docker/build-push-action@v2
+        with:
+          buil-args: |
+            STEP_1_IMAGE=golang:1.15.6-alpine3.12
+            STEP_2_IMAGE=alpine:3.12
+          file: build/docker/Dockerfile
+          push: true
+          tags: |
+            bryannice/gitactions-slack-notification:latest
+            bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
   logPullCiBuildDockerImage:
     needs: pushCiBuildDockerImage
     if: always()
