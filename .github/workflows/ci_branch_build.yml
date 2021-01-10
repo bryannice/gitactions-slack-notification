@@ -27,6 +27,7 @@ jobs:
             STEP_1_IMAGE="golang:1.15.6-alpine3.12" \
             STEP_2_IMAGE="alpine:3.12" \
             IMAGE_TAG=${GITHUB_REF##*/} \
+            GIT_VERSION=${GITHUB_REF##*/} \
             docker-build
     - name: Test gitactions-slack-notification App
       run: |
