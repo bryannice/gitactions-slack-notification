@@ -31,7 +31,7 @@ GIT_VERSION_LONG := $(shell git describe --always --tags --long --dirty)
 
 STEP_1_IMAGE ?= golang:1.15.6-alpine3.12
 STEP_2_IMAGE ?= alpine:3.12
-IMAGE_TAG ?= master
+IMAGE_TAG ?= $(GIT_BRANCH)
 DOCKER_IMAGE_TAG ?= $(GIT_REPOSITORY_NAME):$(GIT_VERSION)
 DOCKER_IMAGE_NAME := $(GIT_REPOSITORY_NAME)
 
@@ -48,7 +48,6 @@ DOCKER_IMAGE_NAME := $(GIT_REPOSITORY_NAME)
 .PHONY: docker-build
 docker-build: docker-rmi-for-build
 	@echo "$(BOLD)$(YELLOW)Building docker image.$(RESET)"
-	@echo $(STEP_1_IMAGE) $(STEP_2_IMAGE) $(IMAGE_TAG) $(DOCKER_IMAGE_NAME) $(DOCKER_IMAGE_NAME):$(GIT_VERSION)
 	@docker build \
 		--build-arg STEP_1_IMAGE=$(STEP_1_IMAGE) \
 		--build-arg STEP_2_IMAGE=$(STEP_2_IMAGE) \
