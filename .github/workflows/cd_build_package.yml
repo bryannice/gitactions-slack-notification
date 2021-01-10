@@ -2,14 +2,15 @@ name: CD Build Go Lang App
 
 on:
   push:
-    tags:
-      - '[0-9]+\.[0-9]+\.[0-9]+'
 
 jobs:
   pushCiBuildDockerImage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Set Tag Name
+        id: get_tag_name
+        run: echo ::set-output name=tag_name::$(echo ${GITHUB_REF##*/})
       - name: Set Variables With Build Info
         id: job_info
         run: |
@@ -25,6 +26,12 @@ jobs:
             --workdir /go/src/github.com/${{ steps.job_info.outputs.repo_name }} \
             golang:1.15.6-alpine3.12 \
             go build
+      - name: Upload build artifact
+        if: success()
+        uses: actions/upload-artifact@v1
+        with:
+          name: v0.0.0
+          path: gitactions-slack-notification
   logPullCiBuildDockerImage:
     needs: pushCiBuildDockerImage
     if: always()
