@@ -23,7 +23,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-      - name: Build and push
+      - name: Build
         id: build_and_push
         uses: docker/build-push-action@v2
         with:
@@ -31,10 +31,11 @@ jobs:
             STEP_1_IMAGE=golang:1.15.6-alpine3.12
             STEP_2_IMAGE=alpine:3.12
           file: build/docker/Dockerfile
-          push: true
           tags: |
             bryannice/gitactions-slack-notification:latest
             bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
+      - name: Push to docker hub
+        run: docker push bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
   logPullCiBuildDockerImage:
     needs: pushCiBuildDockerImage
     if: always()
