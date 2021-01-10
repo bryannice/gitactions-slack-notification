@@ -26,10 +26,10 @@ func (config *Config) Init() error {
 	var err error
 
 	// Checking and setting required environment variables
-	if os.Getenv("SLACK_WEBHOOK") == "" {
-		err = errors.New("SLACK_WEBHOOK must be set")
+	if os.Getenv("SLACK_INCOMING_WEBHOOK") == "" {
+		err = errors.New("SLACK_INCOMING_WEBHOOK must be set")
 	} else {
-		config.SlackWebhook = os.Getenv("SLACK_WEBHOOK")
+		config.SlackWebhook = os.Getenv("SLACK_INCOMING_WEBHOOK")
 	}
 
 	if os.Getenv("SLACK_TITLE") == "" {
