@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Slack Notification Demo
-        uses: bryannice/gitactions-slack-notification@1.2.0
+        uses: bryannice/gitactions-slack-notification@2.0.0
         env:
           GITHUB_ACTOR: ${GITHUB_ACTOR}
           GITHUB_ACTION: ${GITHUB_ACTION}

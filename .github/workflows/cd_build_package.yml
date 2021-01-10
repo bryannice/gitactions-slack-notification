@@ -2,6 +2,8 @@ name: CD Build Go Lang App
 
 on:
   push:
+    tags:
+      - '[0-9]+\.[0-9]+\.[0-9]+'
 
 jobs:
   pushCiBuildDockerImage:
@@ -36,6 +38,14 @@ jobs:
             bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
       - name: Push to docker hub
         run: docker push bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v2.4.1
+        if: success()
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          repository: bryannice/gitactions-slack-notification
+          readme-filepath: README.md
   logPullCiBuildDockerImage:
     needs: pushCiBuildDockerImage
     if: always()
