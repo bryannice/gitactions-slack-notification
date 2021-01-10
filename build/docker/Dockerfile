@@ -1,13 +1,11 @@
 ARG STEP_1_IMAGE=golang:1.15.6-alpine3.12
 ARG STEP_2_IMAGE=alpine:3.12
-ARG IMAGE_TAG=0.0.0
+ARG IMAGE_TAG=master
 
 # -----------------------------------------------------------------------------
 # Step 1
 # -----------------------------------------------------------------------------
 FROM ${STEP_1_IMAGE} AS STEP_1
-
-ARG IMAGE_TAG="master"
 
 # Add github
 RUN apk update && \

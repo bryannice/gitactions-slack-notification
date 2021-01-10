@@ -14,9 +14,6 @@ jobs:
       id: job_info
       run: |
         curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o job_info.json https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${{ github.run_id }}/jobs
-        echo ::set-output name=log_url::$(cat job_info.json | jq --raw-output '.jobs | .[0] | .url')
-        echo ::set-output name=html_url::$(cat job_info.json | jq --raw-output '.jobs | .[0] | .html_url')
-        echo ::set-output name=status::$(cat job_info.json | jq --raw-output '.jobs | .[0] | .conclusion')
         echo ::set-output name=branch_name::$(echo ${GITHUB_REF##*/})
         echo ::set-output name=repo_name::$(echo ${GITHUB_REPOSITORY##*/})
     - name: Capture environment variables
@@ -51,7 +48,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate log file
-        run: curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o build_logs.txt ${{ steps.job_info.outputs.log_url }}/logs
+        run: |
+          curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o job_info.json https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${{ github.run_id }}/jobs
+          curl -v -L -u runner:${{ secrets.GITHUB_TOKEN }} -o build_logs.txt $(cat job_info.json | jq --raw-output '.jobs | .[0] | .url')/logs
       - name: Persisting log
         id: persisting_log
         if: always()
