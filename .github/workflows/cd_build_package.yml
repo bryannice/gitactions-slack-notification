@@ -37,7 +37,9 @@ jobs:
             bryannice/gitactions-slack-notification:latest
             bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
       - name: Push to docker hub
-        run: docker push bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
+        run: |
+          docker push bryannice/gitactions-slack-notification:latest
+          docker push bryannice/gitactions-slack-notification:${{ steps.get_tag_name.outputs.tag_name }}
       - name: Update Docker Hub Description
         uses: peter-evans/dockerhub-description@v2.4.1
         if: success()
