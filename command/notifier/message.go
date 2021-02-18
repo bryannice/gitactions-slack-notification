@@ -10,12 +10,13 @@ type Message struct {
 }
 
 type Attachment struct {
-	AuthorName    string  `json:"author_name,omitempty"`
-	AuthorLink    string  `json:"author_link,omitempty"`
-	AuthorIconURL string  `json:"author_icon,omitempty"`
-	Color         string  `json:"color,omitempty"`
-	Title         string  `json:"title,omitempty"`
-	Fields        []Field `json:"fields,omitempty"`
+	MarkdownIn    []string `json:"mrkdwn_in,omitempty"`
+	AuthorName    string   `json:"author_name,omitempty"`
+	AuthorLink    string   `json:"author_link,omitempty"`
+	AuthorIconURL string   `json:"author_icon,omitempty"`
+	Color         string   `json:"color,omitempty"`
+	Title         string   `json:"title,omitempty"`
+	Fields        []Field  `json:"fields,omitempty"`
 }
 
 type Field struct {
