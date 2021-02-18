@@ -25,6 +25,7 @@ func main() {
 	slackMessage.Channel = config.SlackChannel
 	slackMessage.Attachments = []notifier.Attachment{
 		{
+			MarkdownIn: []string { "fields" },
 			AuthorName:    config.GithubActor,
 			AuthorLink:    "http://github.com/" + config.GithubActor,
 			AuthorIconURL: "http://github.com/" + config.GithubActor + ".png?size=32",
