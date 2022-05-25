@@ -38,7 +38,7 @@ Go [here](deployment/git-actions/template_slack_notification.yml) for a template
 ## Environment Variables
 These are the environment variables that can be set to pass in additional information about the Git Action.
 
-| Variable Name          | Reguired | Description                                                |
+| Variable Name          | Required | Description                                                |
 | ---------------------- | -------- | ---------------------------------------------------------- |
 | GITHUB_ACTOR           | No       | GitHub Actor variable passed from Git Actions.             |
 | GITHUB_ACTION          | No       | GitHub Action name variable passed from Git Actions.       |
